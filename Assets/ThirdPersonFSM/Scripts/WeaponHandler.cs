@@ -1,22 +1,26 @@
 using UnityEngine;
 
-public class WeaponHandler : MonoBehaviour
+namespace ThirdPersonFSM
 {
-    [SerializeField] private GameObject weapon;
-
-
-    private void Start()
+    public class WeaponHandler : MonoBehaviour
     {
-        DisableWeapon();
+        [SerializeField] private GameObject _weapon;
+
+
+        private void Start()
+        {
+            DisableWeapon();
+        }
+
+        public void EnableWeapon()
+        {
+            _weapon.SetActive(true);
+        }
+
+        public void DisableWeapon()
+        {
+            _weapon.SetActive(false);
+        }
     }
 
-    public void EnableWeapon()
-    {
-        weapon.SetActive(true);
-    }
-
-    public void DisableWeapon()
-    {
-        weapon.SetActive(false);
-    }
 }

@@ -1,27 +1,30 @@
 using UnityEngine;
 
-public abstract class State
+namespace ThirdPersonFSM
 {
-    public abstract void Enter();
-
-    public abstract void Tick();
-
-    public abstract void Exit();
-
-    protected float GetNormalizedTime(Animator animator)
+    public abstract class State
     {
-        var currenInfo = animator.GetCurrentAnimatorStateInfo(0);
-        var nextInfo = animator.GetNextAnimatorStateInfo(0);
-        if (animator.IsInTransition(0) && nextInfo.IsTag("Attack"))
-        {
-            return nextInfo.normalizedTime;
-        }
+        public abstract void Enter();
 
-        if (!animator.IsInTransition(0) && currenInfo.IsTag("Attack"))
-        {
-            return currenInfo.normalizedTime;
-        }
+        public abstract void Tick();
 
-        return 0;
+        public abstract void Exit();
+
+        protected float GetNormalizedTime(Animator animator)
+        {
+            var currenInfo = animator.GetCurrentAnimatorStateInfo(0);
+            var nextInfo = animator.GetNextAnimatorStateInfo(0);
+            if (animator.IsInTransition(0) && nextInfo.IsTag("Attack"))
+            {
+                return nextInfo.normalizedTime;
+            }
+
+            if (!animator.IsInTransition(0) && currenInfo.IsTag("Attack"))
+            {
+                return currenInfo.normalizedTime;
+            }
+
+            return 0;
+        }
     }
 }

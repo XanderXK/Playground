@@ -1,37 +1,41 @@
 using System;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+namespace ThirdPersonFSM
 {
-    [SerializeField] private int health = 100;
-    private int currentHealth;
-
-    public bool IsInvulnerable { get; set; }
-    public bool IsDead { get; private set; }
-
-    public event Action OnTakeDamage;
-    public event Action OnDie;
-
-
-    private void Start()
+    public class Health : MonoBehaviour
     {
-        currentHealth = health;
-    }
+        [SerializeField] private int _health = 100;
+        private int _currentHealth;
 
-    public void DealDamage(int damage)
-    {
-        if (currentHealth <= 0 || IsInvulnerable)
+        public bool IsInvulnerable { get; set; }
+        public bool IsDead { get; private set; }
+
+        public event Action OnTakeDamage;
+        public event Action OnDie;
+
+
+        private void Start()
         {
-            return;
+            _currentHealth = _health;
         }
 
-        currentHealth -= damage;
-        OnTakeDamage?.Invoke();
-
-        if (currentHealth <= 0)
+        public void DealDamage(int damage)
         {
-            IsDead = true;
-            OnDie?.Invoke();
+            if (_currentHealth <= 0 || IsInvulnerable)
+            {
+                return;
+            }
+
+            _currentHealth -= damage;
+            OnTakeDamage?.Invoke();
+
+            if (_currentHealth <= 0)
+            {
+                IsDead = true;
+                OnDie?.Invoke();
+            }
         }
     }
+
 }

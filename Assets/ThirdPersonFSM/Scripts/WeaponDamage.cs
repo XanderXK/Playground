@@ -1,48 +1,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponDamage : MonoBehaviour
+namespace ThirdPersonFSM
 {
-    private Collider characterCollider;
-    private List<Collider> damagedColliders;
-    private int weaponDamage;
-    private float weaponKnockback;
-
-
-    private void OnEnable()
+    public class WeaponDamage : MonoBehaviour
     {
-        damagedColliders = new List<Collider>();
-    }
+        private Collider _characterCollider;
+        private List<Collider> _damagedColliders;
+        private int _weaponDamage;
+        private float _weaponKnockback;
 
-    private void Start()
-    {
-        characterCollider = transform.root.GetComponent<Collider>();
-    }
 
-    public void SetWeaponDamage(int damage, float knockback)
-    {
-        weaponDamage = damage;
-        weaponKnockback = knockback;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other == characterCollider || damagedColliders.Contains(other))
+        private void OnEnable()
         {
-            return;
+            _damagedColliders = new List<Collider>();
         }
 
-        var health = other.GetComponent<Health>();
-        if (health)
+        private void Start()
         {
-            health.DealDamage(weaponDamage);
-            damagedColliders.Add(other);
+            _characterCollider = transform.root.GetComponent<Collider>();
         }
 
-        if (other.TryGetComponent<ForceReceiver>(out var forceReceiver))
+        public void SetWeaponDamage(int damage, float knockback)
         {
-            var force = (other.transform.position - characterCollider.transform.position).normalized * weaponKnockback;
-            forceReceiver.AddForce(force);
+            _weaponDamage = damage;
+            _weaponKnockback = knockback;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other == _characterCollider || _damagedColliders.Contains(other))
+            {
+                return;
+            }
+
+            var health = other.GetComponent<Health>();
+            if (health)
+            {
+                health.DealDamage(_weaponDamage);
+                _damagedColliders.Add(other);
+            }
+
+            if (other.TryGetComponent<ForceReceiver>(out var forceReceiver))
+            {
+                var force = (other.transform.position - _characterCollider.transform.position).normalized *
+                            _weaponKnockback;
+                forceReceiver.AddForce(force);
+            }
         }
     }
 }

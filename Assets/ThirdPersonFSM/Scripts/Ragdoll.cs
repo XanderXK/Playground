@@ -1,39 +1,43 @@
 using UnityEngine;
 
-public class Ragdoll : MonoBehaviour
+namespace ThirdPersonFSM
 {
-    private Collider[] allColliders;
-    private Rigidbody[] allRigidbodies;
-
-
-    private void Awake()
+    public class Ragdoll : MonoBehaviour
     {
-        allColliders = GetComponentsInChildren<Collider>(true);
-        allRigidbodies = GetComponentsInChildren<Rigidbody>(true);
-        ToggleRagdoll(false);
-    }
+        private Collider[] _allColliders;
+        private Rigidbody[] _allRigidbodies;
 
-    public void ToggleRagdoll(bool toggle)
-    {
-        GetComponent<Animator>().enabled = !toggle;
-        GetComponent<CharacterController>().enabled = !toggle;
 
-        var ragdollLayer = LayerMask.NameToLayer("Ragdoll");
-        foreach (var item in allColliders)
+        private void Awake()
         {
-            if (item.gameObject.layer == ragdollLayer)
-            {
-                item.enabled = toggle;
-            }
+            _allColliders = GetComponentsInChildren<Collider>(true);
+            _allRigidbodies = GetComponentsInChildren<Rigidbody>(true);
+            ToggleRagdoll(false);
         }
 
-        foreach (var item in allRigidbodies)
+        public void ToggleRagdoll(bool toggle)
         {
-            if (item.gameObject.layer == ragdollLayer)
+            GetComponent<Animator>().enabled = !toggle;
+            GetComponent<CharacterController>().enabled = !toggle;
+
+            var ragdollLayer = LayerMask.NameToLayer("Ragdoll");
+            foreach (var item in _allColliders)
             {
-                item.useGravity = toggle;
-                item.isKinematic = !toggle;
+                if (item.gameObject.layer == ragdollLayer)
+                {
+                    item.enabled = toggle;
+                }
+            }
+
+            foreach (var item in _allRigidbodies)
+            {
+                if (item.gameObject.layer == ragdollLayer)
+                {
+                    item.useGravity = toggle;
+                    item.isKinematic = !toggle;
+                }
             }
         }
     }
+
 }

@@ -5,11 +5,11 @@ namespace ThirdPersonFSM
 {
     public class PlayerStateMachine : StateMachine
     {
-        [SerializeField] private float moveSpeed;
-        [SerializeField] private float dodgingCooldown;
-        [SerializeField] private List<Attack> attacks;
+        [SerializeField] private float _moveSpeed = 3f;
+        [SerializeField] private float _dodgingCooldown = 1.5f;
+        [SerializeField] private List<Attack> _attacks;
 
-        private float previousDodgeTime;
+        private float _previousDodgeTime;
 
         public InputReader PlayerInput { get; private set; }
         public Health PlayerHealth { get; private set; }
@@ -19,8 +19,8 @@ namespace ThirdPersonFSM
         public WeaponDamage CurrentWeapon { get; private set; }
         public Transform CameraTransform { get; private set; }
         public Ragdoll PlayerRagdoll { get; private set; }
-        public List<Attack> Attacks => attacks;
-        public float MoveSpeed => moveSpeed;
+        public List<Attack> Attacks => _attacks;
+        public float MoveSpeed => _moveSpeed;
 
 
         private void Awake()
@@ -49,12 +49,12 @@ namespace ThirdPersonFSM
 
         private void HandleDodge()
         {
-            if (Time.time - previousDodgeTime < dodgingCooldown)
+            if (Time.time - _previousDodgeTime < _dodgingCooldown)
             {
                 return;
             }
 
-            previousDodgeTime = Time.time;
+            _previousDodgeTime = Time.time;
             SwitchState(new PlayerDodgingState(this));
         }
 
@@ -75,5 +75,4 @@ namespace ThirdPersonFSM
             PlayerInput.OnPlayerDodge -= HandleDodge;
         }
     }
-
 }

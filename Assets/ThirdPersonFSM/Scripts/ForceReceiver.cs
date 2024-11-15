@@ -1,52 +1,55 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ForceReceiver : MonoBehaviour
+namespace ThirdPersonFSM
 {
-    [SerializeField] private float drag;
-
-    private CharacterController characterController;
-    private NavMeshAgent navMeshAgent;
-    private Vector3 dampingVelocity;
-    public float VerticalVelocity { get; private set; }
-    public Vector3 Impact { get; private set; }
-
-
-    private void Awake()
+    public class ForceReceiver : MonoBehaviour
     {
-        characterController = GetComponent<CharacterController>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
-    }
+        [SerializeField] private float _drag = 0.05f;
 
-    private void Update()
-    {
-        if (VerticalVelocity < 0 && characterController.isGrounded)
+        private CharacterController _characterController;
+        private NavMeshAgent _navMeshAgent;
+        private Vector3 _dampingVelocity;
+        public float VerticalVelocity { get; private set; }
+        public Vector3 Impact { get; private set; }
+
+
+        private void Awake()
         {
-            VerticalVelocity = 0;
-        }
-        else
-        {
-            VerticalVelocity += Physics.gravity.y * Time.deltaTime;
+            _characterController = GetComponent<CharacterController>();
+            _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
-        Impact = Vector3.SmoothDamp(Impact, Vector3.zero, ref dampingVelocity, drag);
-        if (Impact.magnitude <= 0.1f && navMeshAgent && !navMeshAgent.enabled)
+        private void Update()
         {
-            navMeshAgent.enabled = true;
-        }
-    }
+            if (VerticalVelocity < 0 && _characterController.isGrounded)
+            {
+                VerticalVelocity = 0;
+            }
+            else
+            {
+                VerticalVelocity += Physics.gravity.y * Time.deltaTime;
+            }
 
-    public void AddForce(Vector3 force)
-    {
-        Impact += force;
-        if (navMeshAgent)
+            Impact = Vector3.SmoothDamp(Impact, Vector3.zero, ref _dampingVelocity, _drag);
+            if (Impact.magnitude <= 0.1f && _navMeshAgent && !_navMeshAgent.enabled)
+            {
+                _navMeshAgent.enabled = true;
+            }
+        }
+
+        public void AddForce(Vector3 force)
         {
-            navMeshAgent.enabled = false;
+            Impact += force;
+            if (_navMeshAgent)
+            {
+                _navMeshAgent.enabled = false;
+            }
         }
-    }
 
-    public void Jump(float jumpForce)
-    {
-        VerticalVelocity += jumpForce;
+        public void Jump(float jumpForce)
+        {
+            VerticalVelocity += jumpForce;
+        }
     }
 }

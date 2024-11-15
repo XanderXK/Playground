@@ -1,19 +1,22 @@
 using UnityEngine;
 
-public abstract class StateMachine : MonoBehaviour
+namespace ThirdPersonFSM
 {
-    private State _currentState;
-
-
-    public void SwitchState(State newState)
+    public abstract class StateMachine : MonoBehaviour
     {
-        _currentState?.Exit();
-        _currentState = newState;
-        _currentState.Enter();
-    }
+        private State _currentState;
 
-    private void Update()
-    {
-        _currentState?.Tick();
+
+        public void SwitchState(State newState)
+        {
+            _currentState?.Exit();
+            _currentState = newState;
+            _currentState.Enter();
+        }
+
+        private void Update()
+        {
+            _currentState?.Tick();
+        }
     }
 }

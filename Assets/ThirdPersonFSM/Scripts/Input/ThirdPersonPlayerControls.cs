@@ -69,7 +69,7 @@ namespace ThirdPersonFSM
                     ""name"": ""SetTarget"",
                     ""type"": ""Button"",
                     ""id"": ""5532c38e-2c06-47af-afb1-78d78e35139c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false

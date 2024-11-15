@@ -1,12 +1,15 @@
 using System;
 using UnityEngine;
 
-public class Target : MonoBehaviour
+namespace ThirdPersonFSM
 {
-    public event Action<Target> OnDisabled;
-
-    private void OnDisable()
+    public class Target : MonoBehaviour
     {
-        OnDisabled?.Invoke(this);
+        public event Action<Target> OnDisabled;
+
+        private void OnDisable()
+        {
+            OnDisabled?.Invoke(this);
+        }
     }
 }
