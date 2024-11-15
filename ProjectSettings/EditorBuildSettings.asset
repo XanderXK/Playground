@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/ThirdPersonFSM/Scenes/SandboxThirdPersonFSM.unity
+    guid: 478eed6e54aa1d61ca4879cef8711904
+  - enabled: 1
+    path: Assets/RTS/Scenes/SandboxRTS.unity
+    guid: 187aeffc43da02964ab31519c3246a5b
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 59cbc5e236e74844bb5c188aea4b8ec4, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: d7079c18ced936e5cb67b3e3885ce4dc, type: 3}
   m_UseUCBPForAssetBundles: 0
