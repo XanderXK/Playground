@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 namespace DesignPatterns.Structural.Proxy
 {
-    
     public class ProxyTester : MonoBehaviour
     {
         private IStatsData _statsData;

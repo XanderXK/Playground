@@ -5,31 +5,31 @@ namespace RTS
 {
     public class Builder : MonoBehaviour
     {
-        [SerializeField] private Building buildingPrefab;
-        private bool isStarted;
-        private Building buildingInstance;
-        private Camera mainCamera;
-        private PlayerInput playerInput;
+        [SerializeField] private Building _buildingPrefab;
+        private bool _isStarted;
+        private Building _buildingInstance;
+        private Camera _mainCamera;
+        private PlayerInput _playerInput;
 
         private void Awake()
         {
-            mainCamera = Camera.main;
-            playerInput = FindObjectOfType<PlayerInput>();
+            _mainCamera = Camera.main;
+            _playerInput = FindAnyObjectByType<PlayerInput>();
         }
 
         private void Update()
         {
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
-                StartBuld();
+                StartBuild();
             }
 
-            if (isStarted)
+            if (_isStarted)
             {
                 Preview();
             }
 
-            if (Mouse.current.leftButton.wasPressedThisFrame && isStarted)
+            if (Mouse.current.leftButton.wasPressedThisFrame && _isStarted)
             {
                 PlaceBuilding();
             }
@@ -37,24 +37,24 @@ namespace RTS
 
         private void Preview()
         {
-            var ray = mainCamera.ScreenPointToRay(playerInput.MousePosition);
+            var ray = _mainCamera.ScreenPointToRay(_playerInput.MousePosition);
             if (Physics.Raycast(ray, out var hitInfo))
             {
-                buildingInstance.transform.position = hitInfo.point;
+                _buildingInstance.transform.position = hitInfo.point;
             }
         }
 
-        private void StartBuld()
+        private void StartBuild()
         {
-            buildingInstance = Instantiate(buildingPrefab);
-            isStarted = true;
+            _buildingInstance = Instantiate(_buildingPrefab);
+            _isStarted = true;
         }
 
         private void PlaceBuilding()
         {
-            isStarted = false;
-            buildingInstance.SetBuilding();
-            buildingInstance = null;
+            _isStarted = false;
+            _buildingInstance.SetBuilding();
+            _buildingInstance = null;
         }
     }
 }
