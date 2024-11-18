@@ -6,7 +6,7 @@ namespace DesignPatterns.Creational.Singleton
     {
         private void Start()
         {
-            Debug.Log(gameObject);
+            Debug.Log(gameObject, gameObject);
         }
     }
 }
