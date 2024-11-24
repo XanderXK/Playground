@@ -12,5 +12,6 @@ EditorBuildSettings:
     path: Assets/RTS/Scenes/SandboxRTS.unity
     guid: 187aeffc43da02964ab31519c3246a5b
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: a69ebf8e4ecdd9e1db591c51ea4d46c8, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: d7079c18ced936e5cb67b3e3885ce4dc, type: 3}
   m_UseUCBPForAssetBundles: 0
